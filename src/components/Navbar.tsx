@@ -3,13 +3,14 @@ import { motion } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./ThemeProvider";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +26,11 @@ const Navbar = () => {
     { name: "Projects", href: "/projects" },
     { name: "Blog", href: "/blog" },
   ];
+
+  const handleContactClick = () => {
+    navigate('/contact');
+    setIsMenuOpen(false);
+  };
 
   return (
     <motion.nav
@@ -57,7 +63,7 @@ const Navbar = () => {
           <Button variant="ghost" size="icon" onClick={toggleTheme}>
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
-          <Button>Contact Me</Button>
+          <Button onClick={handleContactClick}>Contact Me</Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -96,7 +102,7 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-              <Button className="w-full">Contact Me</Button>
+              <Button className="w-full" onClick={handleContactClick}>Contact Me</Button>
             </div>
           </motion.div>
         )}
