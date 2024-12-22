@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Cloud, Code2, Database, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="home" className="min-h-screen flex items-center section-padding">
       <div className="container-width">
@@ -47,11 +50,11 @@ const Hero = () => {
               transition={{ delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Button size="lg" className="group">
+              <Button size="lg" className="group" onClick={() => navigate("/projects")}>
                 Ver Proyectos
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" onClick={() => navigate("/contact")}>
                 Contactar
               </Button>
             </motion.div>

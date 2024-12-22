@@ -3,6 +3,7 @@ import { Copy, Check, Tag, Calendar, Clock, ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { BlogPost } from "@/lib/blog-data";
+import { useNavigate } from "react-router-dom";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -11,6 +12,8 @@ interface BlogCardProps {
 }
 
 export const BlogCard = ({ post, copiedId, onCopy }: BlogCardProps) => {
+  const navigate = useNavigate();
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -70,7 +73,11 @@ export const BlogCard = ({ post, copiedId, onCopy }: BlogCardProps) => {
           </div>
         )}
 
-        <Button variant="link" className="group text-primary hover:text-primary/90 p-0 h-auto font-medium">
+        <Button 
+          variant="link" 
+          className="group text-primary hover:text-primary/90 p-0 h-auto font-medium"
+          onClick={() => navigate(`/blog/${post.id}`)}
+        >
           Leer más
           <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
         </Button>
