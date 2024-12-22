@@ -2,8 +2,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { blogPosts } from "@/lib/blog-data";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
 import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
 
 const BlogPost = () => {
   const { id } = useParams();
@@ -12,10 +13,10 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-background">
         <Navbar />
         <div className="container mx-auto px-4 py-20">
-          <h1 className="text-2xl">Artículo no encontrado</h1>
+          <h1 className="text-2xl text-foreground">Artículo no encontrado</h1>
           <Button onClick={() => navigate("/blog")} className="mt-4">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Volver al blog
@@ -43,27 +44,43 @@ const BlogPost = () => {
         </Button>
 
         <div className="prose dark:prose-invert max-w-none">
-          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-          <div className="flex gap-4 text-sm text-muted-foreground mb-8">
-            <span>{post.date}</span>
-            {post.readingTime && <span>{post.readingTime}</span>}
+          <h1 className="text-4xl font-bold mb-4 text-foreground">{post.title}</h1>
+          
+          <div className="flex flex-wrap items-center gap-4 mb-8">
+            <Badge variant="secondary" className="capitalize">
+              {post.category}
+            </Badge>
+            <div className="flex items-center gap-1 text-muted-foreground">
+              <Calendar className="h-4 w-4" />
+              {post.date}
+            </div>
+            {post.readingTime && (
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <Clock className="h-4 w-4" />
+                {post.readingTime}
+              </div>
+            )}
           </div>
-          <div className="mb-8">
+
+          <div className="flex flex-wrap gap-2 mb-8">
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm mr-2 mb-2"
+              <div 
+                key={tag} 
+                className="flex items-center gap-1 text-sm text-muted-foreground bg-secondary/30 dark:bg-secondary/20 px-3 py-1 rounded-full"
               >
+                <Tag className="h-3 w-3" />
                 {tag}
-              </span>
+              </div>
             ))}
           </div>
-          <div className="leading-relaxed">
+
+          <div className="text-muted-foreground leading-relaxed">
             {post.content}
           </div>
+
           {post.code && (
-            <pre className="bg-secondary/20 p-6 rounded-lg overflow-x-auto my-6">
-              <code className="text-sm font-mono">{post.code}</code>
+            <pre className="bg-secondary/50 dark:bg-secondary/10 p-6 rounded-lg overflow-x-auto my-6">
+              <code className="text-sm font-mono text-foreground">{post.code}</code>
             </pre>
           )}
         </div>

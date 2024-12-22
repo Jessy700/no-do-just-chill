@@ -18,10 +18,10 @@ export const BlogCard = ({ post, copiedId, onCopy }: BlogCardProps) => {
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-panel rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 dark:bg-secondary/10"
+      className="glass-panel rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl dark:bg-secondary/10 dark:hover:bg-secondary/20"
     >
       <div className="p-8">
-        <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-muted-foreground">
           <Badge variant="secondary" className="capitalize">
             {post.category}
           </Badge>
@@ -55,13 +55,13 @@ export const BlogCard = ({ post, copiedId, onCopy }: BlogCardProps) => {
 
         {post.code && (
           <div className="relative mt-6 mb-6">
-            <pre className="bg-secondary dark:bg-secondary/10 p-6 rounded-lg overflow-x-auto text-foreground">
-              <code className="text-sm font-mono">{post.code}</code>
+            <pre className="bg-secondary/50 dark:bg-secondary/10 p-6 rounded-lg overflow-x-auto">
+              <code className="text-sm font-mono text-foreground">{post.code}</code>
             </pre>
             <Button
               variant="secondary"
               size="icon"
-              className="absolute top-3 right-3 bg-secondary hover:bg-secondary/80 dark:bg-secondary/20 dark:hover:bg-secondary/30"
+              className="absolute top-3 right-3 bg-secondary/50 hover:bg-secondary/80 dark:bg-secondary/20 dark:hover:bg-secondary/30"
               onClick={() => onCopy(post.code!, post.id)}
             >
               {copiedId === post.id ? (
